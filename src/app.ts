@@ -15,8 +15,21 @@ import "./lib/scheduler";
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: [
+      /http:\/\/localhost/,
+      "https://starticket.muhammadmasyhuda.my.id",
+      "https://starticket.vercel.app",
+    ],
+  }),
+);
 app.use(express.json());
+
+app.get("/", (_, res) => {
+  res.send("Welcome to Starticket API");
+});
 
 //routes
 app.use("/auth", authRouter);
